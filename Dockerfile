@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install Node.js dependencies
-RUN npm install
+RUN yarn install
 
 # Copy all the application files to the container
 COPY . .
