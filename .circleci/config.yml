@@ -31,6 +31,36 @@ jobs:
       - run: yarn docker:inte
       - run: yarn test:e2e
 
+  build-docker-image:
+      # Use the official CircleCI Node.js image as the primary container for running the job
+    docker:
+      - image: circleci/node:lts
+
+    # Define the steps for the job
+    steps:
+      # Checkout the code from your repository
+      - checkout
+
+      # Install any Node.js dependencies (if required)
+      - run:
+          name: Install Dependencies
+          command: npm install
+
+      # Build the Docker image
+      - run:
+          name: Build Docker Image
+          command: |
+            # Replace 'your-image-name' with the desired name for your Docker image
+            # Replace 'your-dockerfile-name' with the name of your Dockerfile if it's not named 'Dockerfile'
+            docker build -t your-image-name -f your-dockerfile-name .
+
+      # (Optional) Push the Docker image to a container registry (e.g., Docker Hub)
+      # You'll need to set up environment variables for your registry credentials
+      # - run:
+      #     name: Push Docker Image
+      #     command: |
+      #       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      #       docker push your-image-name
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -38,6 +68,12 @@ workflows:
     jobs:
       - pre-build-check
 
-  integration-test-workflow:
+  build_and_push:
+    # Trigger this workflow when changes are pushed to the specified branch (e.g., main or master)  
+    # on:
+    #   branches:
+    #     only:
+    #       - main
     jobs:
-      - intergate-test-suite
+      # Run the build_docker_image job when the workflow is triggered
+      - build-docker-image
