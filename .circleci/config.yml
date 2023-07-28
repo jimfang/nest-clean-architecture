@@ -20,9 +20,24 @@ jobs:
           command: "yarn install"
       - run: yarn test:unit 
 
+  intergate-test-suite:
+    docker:
+      - image: cimg/node:20.5.0
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn start
+      - run: yarn docker:up
+      - run: yarn docker:inte
+      - run: yarn test:e2e
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   pre-build-workflow:
     jobs:
       - pre-build-check
+
+  integration-test-workflow:
+    jobs:
+      - intergate-test-suite
