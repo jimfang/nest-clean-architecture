@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Command to start the Nest.js application (make sure your package.json has a "start" script)
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
