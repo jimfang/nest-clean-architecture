@@ -44,7 +44,7 @@ jobs:
       # Install any Node.js dependencies (if required)
       - run:
           name: Install Dependencies
-          command: npm install
+          command: yarn install
 
       # Build the Docker image
       - run:
