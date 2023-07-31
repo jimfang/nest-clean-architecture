@@ -52,7 +52,7 @@ jobs:
           command: |
             # Replace 'your-image-name' with the desired name for your Docker image
             # Replace 'your-dockerfile-name' with the name of your Dockerfile if it's not named 'Dockerfile'
-            docker build -t your-image-name -f your-dockerfile-name .
+            docker build -t app-mesh-test .
 
       # (Optional) Push the Docker image to a container registry (e.g., Docker Hub)
       # You'll need to set up environment variables for your registry credentials
